@@ -76,6 +76,8 @@ public class SettingsAdvFragment extends BaseFragment implements NotificationCen
     private int manageKeysRow;
     private int backupRow;
     private int backupShadowRow;
+    private int CoreCommandsHeaderRow;
+    private int CoreCommandsRow;
     private int rowCount;
 
     private static final int ROWTYPE_SHADOW          = 0;
@@ -125,6 +127,8 @@ public class SettingsAdvFragment extends BaseFragment implements NotificationCen
         manageKeysRow           = rowCount++;
         backupRow               = rowCount++;
         backupShadowRow         = rowCount++;
+        CoreCommandsHeaderRow   = rowCount++;
+        CoreCommandsRow         = rowCount++;
 
         return true;
     }
@@ -233,6 +237,10 @@ public class SettingsAdvFragment extends BaseFragment implements NotificationCen
                 else if(i==accountSettingsRow)
                 {
                     presentFragment(new SettingsAccountFragment(null));
+                }
+                else if(i==CoreCommandsRow)
+                {
+                    presentFragment(new SettingsCoreCmdsFragment());
                 }
                 else if(i==initiateKeyTransferRow )
                 {
@@ -622,6 +630,9 @@ public class SettingsAdvFragment extends BaseFragment implements NotificationCen
                     int size = preferences.getInt("msg_font_size", SettingsAdvFragment.defMsgFontSize());
                     textCell.setTextAndValue(mContext.getString(R.string.TextSize), String.format("%d", size), true);
                 }
+                else if( i == CoreCommandsRow ) {
+                    textCell.setText(mContext.getString(R.string.CoreCommands), true);
+                }
             } else if (type == ROWTYPE_CHECK) {
                 if (view == null) {
                     view = new TextCheckCell(mContext);
@@ -656,6 +667,9 @@ public class SettingsAdvFragment extends BaseFragment implements NotificationCen
                 if (i == imexHeaderRow) {
                     ((HeaderCell) view).setText(mContext.getString(R.string.ExportImportHeader));
                 }
+                else if( i == CoreCommandsHeaderRow ) {
+                    ((HeaderCell) view).setText(mContext.getString(R.string.CoreCommandsHeader));
+                }
             }
 
             return view;
@@ -665,7 +679,7 @@ public class SettingsAdvFragment extends BaseFragment implements NotificationCen
         public int getItemViewType(int i) {
             if (i== settingsShadowRow || i==backupShadowRow ) {
                 return ROWTYPE_SHADOW;
-            } else if( i==imexHeaderRow ) {
+            } else if( i==imexHeaderRow || i==CoreCommandsHeaderRow ) {
                 return ROWTYPE_HEADER;
             } else if ( i == sendByEnterRow || i == raiseToSpeakRow || i == autoplayGifsRow || i==showUnknownSendersRow || i == directShareRow || i==e2eEncryptionRow) {
                 return ROWTYPE_CHECK;

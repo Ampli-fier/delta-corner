@@ -386,6 +386,10 @@
     <string name="MyStatusExplain">Der Status wird z.B. in der E-Mail-Fußzeile angezeigt</string>
     <string name="MsgGroupImageDeleted">Gruppenbild gelöscht.</string>
     <string name="AskDeleteGroupImage">Soll das Gruppenbild für alle Gruppenmitglieder gelöscht werden?</string>
+    <string name="CoreCommandsHeader">Core Kommandos</string>
+    <string name="CoreCommands">Kommandos ausführen</string>
+    <string name="CoreCommandsInfo">• Klick auf den ✓ schickt das Kommando.\n• ACHTUNG: Einige Kommandos können zu komplettem Datenverlust führen. Ein aktuelles Backup ist empfohlen!\n• Authentifizierung ist aus Sicherheitsgründen notwendig.\n• Kommandokurzliste:\n - help = Hilfe\n - auth \"Mail-Passwort\" = Authentifizierung\n - info = Logs, Kommandoergebnisse,...</string>
+    <string name="CoreCommandsEnter">Kommandoeingabe:</string>
     <string name="ExportImportHeader">Export und Import</string>
     <string name="ImportExportExplain">Exportierte Dateien enthalten private Schlüssel! Bewahren Sie die Dateien an einem sicheren Ort und oder löschen Sie sie, sobald sie nicht mehr benötigt werden.</string>
     <string name="EnterPasswordToContinue">Um fortzufahren, geben Sie das Passwort für %1$s ein:</string>

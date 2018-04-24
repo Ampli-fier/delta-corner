@@ -392,6 +392,10 @@
     <string name="MyStatusExplain">The status is shown in email footers, among other places.</string>
     <string name="MsgGroupImageDeleted">Group image deleted.</string>
     <string name="AskDeleteGroupImage">Are you sure to delete the group image?\n\nThis will affect all devices of all group members.</string>
+    <string name="CoreCommandsHeader">Core Commands</string>
+    <string name="CoreCommands">Execute commands</string>
+    <string name="CoreCommandsInfo">• Click on ✓ to send the command.\n• WARNING: Some commands can result in full data loss. Make a fresh backup to be safe!\n• Authentication is mandatory for security reasons.\n• Short command list:\n - help\n - auth \"mail password\" = Authentication\n - info = Logs, command printouts, ...</string>
+    <string name="CoreCommandsEnter">Enter command:</string>
     <string name="ExportImportHeader">Export and import</string>
     <string name="ImportExportExplain">Exported files will contain secret keys! Keep them in a safe place or delete them as soon as possible.</string>
     <string name="EnterPasswordToContinue">Enter the password for %1$s to continue:</string>
