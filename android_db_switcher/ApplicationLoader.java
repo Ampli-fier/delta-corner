@@ -42,7 +42,10 @@ import android.util.Log;
 
 import com.b44t.messenger.Components.ForegroundDetector;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class ApplicationLoader extends Application {
 
@@ -210,9 +213,63 @@ public class ApplicationLoader extends Application {
             editor.apply();
         }
 
+        // Switch database files in a loop on every start, allow max 4 databases
+        File lastusedfile = new File(getFilesDirFixed(),"../lastused");
+        File folder = new File(String.valueOf(getFilesDirFixed()));
+        String line;
+        String fileref_str = "";
+        int fileref_int = -1;
+        int incr = 0;
+        int max_dbs = 4;
+        String[] db_file_array = new String[max_dbs];
+
+        try {
+            if ( ! lastusedfile.exists()) {
+                FileWriter fr = new FileWriter(lastusedfile);
+                fr.write(fileref_str.toString());
+                fr.close();
+            }
+            else {
+                BufferedReader content_reader = new BufferedReader(new FileReader(lastusedfile));
+                while ((line = content_reader.readLine()) != null)
+                { fileref_str = line; }
+                content_reader.close();
+                fileref_int = Integer.valueOf(fileref_str);;
+            }
+
+            File[] listedFiles = folder.listFiles();
+
+            for (File selectedFile : listedFiles) {
+                if ( selectedFile.isFile()) {
+                    if (selectedFile.toString().endsWith(".db")) {
+                        db_file_array[incr] = selectedFile.getName();
+                        incr++;
+                        if ( incr == max_dbs) { break; }
+                    }
+                }
+            }
+
+            Log.i("DeltaChat", "Found " + incr + " database file(s)");
+
+            fileref_int++;
+            if ( fileref_int > incr-1 ) { fileref_int = 0; }
+
+            FileWriter fr = new FileWriter(lastusedfile);
+            fr.write(String.valueOf(fileref_int));
+            fr.close();
+
+            Log.i("DeltaChat", "Using database: " + db_file_array[fileref_int]);
+
+        } catch(Exception e) {
+            // if any error occurs, fall back to using only the default database
+            fileref_int=0;
+            db_file_array[fileref_int] = "messenger.db";
+            Log.e("DeltaChat", "Failed in switching database file, using default = messenger.db");
+        }
+
         // open() sqlite file (you can inspect the file eg. with "Tools / Android Device Monitor / File Explorer")
         // open() should be called before MessagesController.getInstance() as this also initilizes directories based upon getBlobdir().
-        File dbfile = new File(getFilesDirFixed(), "messenger.db");
+        File dbfile = new File(getFilesDirFixed(), db_file_array[fileref_int]);
         MrMailbox.open(dbfile.getAbsolutePath());
         if( MrMailbox.isConfigured()!=0 ) {
             MrMailbox.connect();
