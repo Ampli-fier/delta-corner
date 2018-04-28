@@ -40,6 +40,7 @@ import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -53,7 +54,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -124,6 +124,7 @@ public class ChatlistActivity extends BaseFragment implements NotificationCenter
     private static final int ID_DEADDROP = 7;
     private static final int ID_SCAN_QR  = 8;
     private static final int ID_SHOW_QR  = 9;
+    private static final int ID_RESTART = 10;
 
     public interface ChatlistActivityDelegate {
         void didSelectChat(ChatlistActivity fragment, long dialog_id, boolean param);
@@ -281,6 +282,7 @@ public class ChatlistActivity extends BaseFragment implements NotificationCenter
                 }
                 headerItem.addSubItem(ID_DEADDROP, ApplicationLoader.applicationContext.getString(R.string.Deaddrop));
                 headerItem.addSubItem(ID_SETTINGS, ApplicationLoader.applicationContext.getString(R.string.Settings));
+                headerItem.addSubItem(ID_RESTART, "Restart");
             }
         }
 
@@ -355,6 +357,17 @@ public class ChatlistActivity extends BaseFragment implements NotificationCenter
                     else if(id == ID_SHOW_QR) {
                         Intent intent2 = new Intent(getParentActivity(), QRshowActivity.class);
                         getParentActivity().startActivity(intent2);
+                    }
+                    else if(id == ID_RESTART) {
+                        Log.d("DeltaChat","Calling Mailbox Close");
+                        MrMailbox.close();
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                        }
+                        int pid = android.os.Process.myPid();
+                        Log.d("DeltaChat","Kill my PID: " + pid);
+                        android.os.Process.killProcess(pid);
                     }
 
                 }
