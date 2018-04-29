@@ -66,3 +66,5 @@ It was intended to _Exit_ the app, but on my phone (Cyanogen Mod 12.1 = Android 
 40:00.356  2220  5652 W InputMethodManagerService: Got RemoteException sending setActive(false) notification to pid 30810 uid 10175
 40:01.250  2220  2241 I ActivityManager: Start proc 30892:com.b44t.messenger.beta/u0a175 for service com.b44t.messenger.beta/com.b44t.messenger.KeepAliveService
 ```
+
+Have to read [this](https://stackoverflow.com/questions/2033914/is-quitting-an-application-frowned-upon) thoroughly to understand how to exit an Android app "in a good way".
